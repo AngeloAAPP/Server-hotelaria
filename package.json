@@ -1,0 +1,15 @@
+{
+  "name": "server",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "yarn": "^1.22.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
