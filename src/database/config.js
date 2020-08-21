@@ -1,3 +1,6 @@
+
+//Arquivo contendo todas as configurações de acesso ao banco de dados
+
 require("dotenv").config()
 
 module.exports = {
@@ -6,7 +9,13 @@ module.exports = {
     port: process.env.DB_PORT,
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABE,
+    database: process.env.DB_DATABASE,
+    dialectOptions:{
+        ssl: {
+            require: true,
+            rejectUnauthorized: false
+        }
+    },    
     define: {
         timestamps:true,
     }
