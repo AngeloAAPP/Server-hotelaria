@@ -3,13 +3,22 @@
 
 require("dotenv").config()
 
+const stringDB = process.env.DATABASE_URL.substring(11)
+
+//Separa a string de conexão com o banco de dados em suas respectivas variaveis
+//Não foi utilizada a string diretamente para conseguir utilizar a linha de comando do sequelize
+
+const [username, passwordAndHost, portAndDatabase] = stringDB.split(":")
+const [password, host] = passwordAndHost.split("@")
+const [port, database] = portAndDatabase.split('/')
+
 module.exports = {
     dialect: "postgres",
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    username: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE,
+    host,
+    port,
+    username,
+    password,
+    database,
     dialectOptions:{
         ssl: {
             require: true,
