@@ -15,7 +15,7 @@ module.exports = {
       },
       cpf: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
       },
       telefone: {
         type: Sequelize.STRING,
@@ -23,7 +23,7 @@ module.exports = {
       },
       num_passaporte: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
       },
       quant_adultos: {
         type: Sequelize.INTEGER,
@@ -33,11 +33,11 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false
       },
-      created_At: {
+      created_at: {
         type: Sequelize.DATE,
         allowNull: false
       },
-      updated_At: {
+      updated_at: {
         type: Sequelize.DATE,
         allowNull: false
       }

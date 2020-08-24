@@ -3,13 +3,13 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('quartos', {
-      num_quarto: {
+      id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true
       },
-      tipo_de_quarto: {
+      tipo_de_quarto_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -28,11 +28,11 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         allowNull: false,
       },
-      created_At: {
+      created_at: {
         type: Sequelize.DATE,
         allowNull: false
       },
-      updated_At: {
+      updated_at: {
         type: Sequelize.DATE,
         allowNull: false
       }

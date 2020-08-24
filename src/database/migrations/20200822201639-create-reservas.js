@@ -9,7 +9,7 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true
       },
-      hospede: {
+      hospede_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -19,12 +19,12 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
-      quarto: {
+      quarto_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: 'quartos',
-          key: 'num_quarto'
+          key: 'id'
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
@@ -39,13 +39,13 @@ module.exports = {
       },
       senha: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
       },
-      created_At: {
+      created_at: {
         type: Sequelize.DATE,
         allowNull: false
       },
-      updated_At: {
+      updated_at: {
         type: Sequelize.DATE,
         allowNull: false
       }

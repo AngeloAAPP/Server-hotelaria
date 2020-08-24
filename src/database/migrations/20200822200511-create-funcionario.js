@@ -3,7 +3,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('funcionarios', {
-      matricula: {
+      id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         primaryKey: true,
@@ -29,11 +29,11 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      created_At: {
+      created_at: {
         type: Sequelize.DATE,
         allowNull: false
       },
-      updated_At: {
+      updated_at: {
         type: Sequelize.DATE,
         allowNull: false
       }
