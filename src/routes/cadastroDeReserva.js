@@ -6,6 +6,7 @@ const Quarto = require('../database/models/Quarto')
 const Reserva = require('../database/models/Reserva')
 
 routes.post('/', async (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
 
     const dados = {
         nome: req.body.nome,
