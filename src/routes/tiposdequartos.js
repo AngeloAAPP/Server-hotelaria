@@ -1,7 +1,7 @@
 const routes = require('express').Router()
 const TipoDeQuarto = require('../database/models/TipoDeQuarto')
 
-routes.get('/',async (req,res) => {
+routes.get('/', async (req, res) => {
     const tiposDequartos = await TipoDeQuarto.findAll({
 
         attributes: ['id', 'nome', 'capacidade'],
