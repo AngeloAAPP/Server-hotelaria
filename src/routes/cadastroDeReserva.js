@@ -33,7 +33,13 @@ routes.post('/', async (req, res) => {
             nome: dados.tipoDeQuarto,
         }
     }).catch(erro => {
-        console.log("Deu erro: " + erro)
+        res.json({
+            status: "Erro",
+            dados: {
+                tabela: "TipoDeQuarto",
+                erro,
+            }
+        })
     })
 
     dados.idTipoDeQuarto = tipoDeQuarto.dataValues.id
@@ -51,7 +57,13 @@ routes.post('/', async (req, res) => {
             quant_criancas: dados.quant_criancas
         }
     }).catch(erro => {
-        console.log("Deu erro: " + erro)
+        res.json({
+            status: "Erro",
+            dados: {
+                tabela: "Hospede",
+                erro,
+            }
+        })
     })
 
     const [endereco, booleanoEndereco] = await Endereco.findOrCreate({
@@ -74,7 +86,13 @@ routes.post('/', async (req, res) => {
             hospede_id: hospede.dataValues.id
         }
     }).catch(erro => {
-        console.log("Deu erro: " + erro)
+        res.json({
+            status: "Erro",
+            dados: {
+                tabela: "Endereco",
+                erro,
+            }
+        })
     })
 
     const quarto = await Quarto.findOne({
@@ -82,7 +100,13 @@ routes.post('/', async (req, res) => {
             tipo_de_quarto_id: dados.idTipoDeQuarto,
         }
     }).catch(erro => {
-        console.log("Deu erro: " + erro)
+        res.json({
+            status: "Erro",
+            dados: {
+                tabela: "Quarto",
+                erro,
+            }
+        })
     })
 
     const [reserva, booleanoReserva] = await Reserva.findOrCreate({
@@ -98,7 +122,13 @@ routes.post('/', async (req, res) => {
             quarto_id: quarto.id
         }
     }).catch(erro => {
-        console.log("Deu erro: " + erro)
+        res.json({
+            status: "Erro",
+            dados: {
+                tabela: "Reserva",
+                erro,
+            }
+        })
     })
 
     res.json({
