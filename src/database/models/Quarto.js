@@ -8,6 +8,10 @@ class Quarto extends Model{
      */
     static init(sequelize){
         super.init({
+            num_quarto: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+            },
             livre: {
                 type: DataTypes.BOOLEAN,
                 allowNull: false,
