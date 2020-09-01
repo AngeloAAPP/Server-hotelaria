@@ -45,9 +45,7 @@ routes.post('/', async (req, res) => {
                 nome: dados.nome,
                 cpf: dados.cpf,
                 telefone: dados.telefone,
-                num_passaporte: dados.num_passaporte,
-                quant_adultos: dados.quant_adultos,
-                quant_criancas: dados.quant_criancas
+                num_passaporte: dados.num_passaporte
             }
         })
     
@@ -82,11 +80,14 @@ routes.post('/', async (req, res) => {
             where: {
                 data_inicio: dados.data_inicio,
                 data_fim: dados.data_fim
+                
             },
             defaults: {
                 data_inicio: dados.data_inicio,
                 data_fim: dados.data_fim,
                 senha: dados.senha,
+                quant_adultos: dados.quant_adultos,
+                quant_criancas: dados.quant_criancas,
                 hospede_id: hospede.id,
                 quarto_id: quarto.id
             }

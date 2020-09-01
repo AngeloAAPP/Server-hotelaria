@@ -31,6 +31,24 @@ class Reserva extends Model {
                 allowNull: true,
                 defaultValue: null
             },
+            quant_adultos: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                validate: {
+                    notNull:{
+                        msg: "A quantidade de adultos é obrigatória"
+                    }
+                }
+            },
+            quant_criancas: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                validate: {
+                    notNull:{
+                        msg: "A quantidade de crianças é obrigatória"
+                    }
+                }
+            },
         }, {
             sequelize,
             tableName: 'reservas'
