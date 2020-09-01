@@ -1,4 +1,5 @@
 const { Model, DataTypes } = require('sequelize')
+const crypto = require('crypto').randomBytes(4).toString('hex')
 
 class Reserva extends Model {
 
@@ -29,7 +30,7 @@ class Reserva extends Model {
             senha: {
                 type: DataTypes.STRING,
                 allowNull: true,
-                defaultValue: null
+                defaultValue: crypto
             },
             quant_adultos: {
                 type: DataTypes.INTEGER,

@@ -24,7 +24,6 @@ routes.post('/', async (req, res) => {
             quant_criancas: req.body.quantCriancas,
             data_inicio: req.body.dataInicio,
             data_fim: req.body.dataFim,
-            senha: null,
             tipoDeQuarto: req.body.tipoDeQuarto,
             idTipoDeQuarto: null,
         }
