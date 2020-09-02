@@ -36,17 +36,35 @@ routes.post('/', async (req, res) => {
     
         dados.idTipoDeQuarto = tipoDeQuarto.dataValues.id
     
-        const [hospede, booleanoHospede] = await Hospede.findOrCreate({
-            where: {
-                cpf: dados.cpf
-            },
-            defaults: {
-                nome: dados.nome,
-                cpf: dados.cpf,
-                telefone: dados.telefone,
-                num_passaporte: dados.num_passaporte
-            }
-        })
+        var retornoHospede = [];
+        if (dados.cpf !== null) {
+            retornoHospede = await Hospede.findOrCreate({
+                where: {
+                    cpf: dados.cpf
+                },
+                defaults: {
+                    nome: dados.nome,
+                    cpf: dados.cpf,
+                    telefone: dados.telefone,
+                    num_passaporte: dados.num_passaporte
+                }
+            })
+        }
+        else {
+            retornoHospede = await Hospede.findOrCreate({
+                where: {
+                    num_passaporte: dados.num_passaporte
+                },
+                defaults: {
+                    nome: dados.nome,
+                    cpf: dados.cpf,
+                    telefone: dados.telefone,
+                    num_passaporte: dados.num_passaporte
+                }
+            })
+        }
+
+        const hospede = retornoHospede[0];
     
         const [endereco, booleanoEndereco] = await Endereco.findOrCreate({
             where: {
@@ -99,7 +117,7 @@ routes.post('/', async (req, res) => {
         
     } catch (err) {
         try{
-
+            console.log(err);
             let error = "";
 
             err.errors.forEach(erro => {
