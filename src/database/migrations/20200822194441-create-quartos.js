@@ -24,6 +24,7 @@ module.exports = {
       num_quarto: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        unique: true
       },
       livre: {
         type: Sequelize.BOOLEAN,

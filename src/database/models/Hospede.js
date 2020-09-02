@@ -20,12 +20,6 @@ class Hospede extends Model {
             cpf: {
                 type: DataTypes.STRING,
                 allowNull: true,
-                validate: {
-                    is: {
-                        args: /^\d{11}$/,
-                        msg: "Formato de cpf inválido"
-                    },
-                }
             },
             telefone: {
                 type: DataTypes.STRING,
@@ -46,7 +40,7 @@ class Hospede extends Model {
             }
         }, {
             sequelize,
-            tableName: 'hospedes'
+            tableName: 'hospedes',
         })
     }
 

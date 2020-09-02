@@ -27,10 +27,18 @@ routes.post('/', async (req, res) => {
             tipoDeQuarto: req.body.tipoDeQuarto,
             idTipoDeQuarto: null,
         }
+
+        let regexCpf = /^\d{11}$/
+
+        //por algum motivo, o front está mandando null como string
+        if(dados.cpf !== "null"){
+            if(!regexCpf.test(dados.cpf))
+                return res.status(400).json({status: "Erro", dados: "Formato de cpf inválido"})
+        }
     
         const tipoDeQuarto = await TipoDeQuarto.findOne({
             where: {
-                nome: dados.tipoDeQuarto,
+                nome: dados.tipoDeQuarto
             }
         })
     
@@ -73,7 +81,6 @@ routes.post('/', async (req, res) => {
                 numero: dados.numero,
                 cidade: dados.cidade,
                 estado: dados.estado,
-                complemento: dados.complemento,
                 hospede_id: hospede.dataValues.id
             },
             defaults: {
@@ -131,6 +138,7 @@ routes.post('/', async (req, res) => {
         }
         
         catch(e){
+
             return res.status(400).json({status: "Erro", dados: "Verifique as informações e tente novamente"})
         }
     }
