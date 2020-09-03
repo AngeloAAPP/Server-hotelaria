@@ -20,12 +20,6 @@ class Hospede extends Model {
             cpf: {
                 type: DataTypes.STRING,
                 allowNull: true,
-                validate: {
-                    is: {
-                        args: /^\d{11}$/,
-                        msg: "Formato de cpf inválido"
-                    },
-                }
             },
             telefone: {
                 type: DataTypes.STRING,
@@ -43,29 +37,10 @@ class Hospede extends Model {
             num_passaporte: {
                 type: DataTypes.STRING,
                 allowNull: true
-            },
-            quant_adultos: {
-                type: DataTypes.INTEGER,
-                allowNull: false,
-                validate: {
-                    notNull:{
-                        msg: "A quantidade de adultos é obrigatória"
-                    }
-                }
-            },
-            quant_criancas: {
-                type: DataTypes.INTEGER,
-                allowNull: false,
-                validate: {
-                    notNull:{
-                        msg: "A quantidade de crianças é obrigatória"
-                    }
-                }
-            },
-
+            }
         }, {
             sequelize,
-            tableName: 'hospedes'
+            tableName: 'hospedes',
         })
     }
 

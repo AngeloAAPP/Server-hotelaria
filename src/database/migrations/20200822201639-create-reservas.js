@@ -41,6 +41,14 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true
       },
+      quant_adultos: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      quant_criancas: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false

@@ -10,6 +10,7 @@ module.exports = {
         autoIncrement: true
       },
       tipo_de_quarto_id: {
+
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -19,6 +20,11 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
+      },
+      num_quarto: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        unique: true
       },
       livre: {
         type: Sequelize.BOOLEAN,

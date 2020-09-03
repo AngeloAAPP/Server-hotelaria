@@ -39,7 +39,10 @@ class Endereco extends Model {
         allowNull: false,
         validate: {
           notNull: {
-            msg: 'O número é obrigatório'
+            msg: 'O número do endereço é obrigatório'
+          },
+          isNumeric: {
+            msg: 'O número do endereço deve ser numérico'
           }
         }
       },
