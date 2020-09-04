@@ -45,7 +45,7 @@ routes.post('/', async (req, res) => {
         dados.idTipoDeQuarto = tipoDeQuarto.dataValues.id
     
         var retornoHospede = [];
-        if (dados.cpf !== null) {
+        if (dados.cpf !== null && dados.cpf !== "null") {
             retornoHospede = await Hospede.findOrCreate({
                 where: {
                     cpf: dados.cpf

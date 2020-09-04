@@ -2,11 +2,11 @@ const routes = require('express').Router()
 const Reserva = require('../database/models/Reserva')
 
 routes.get('/', async (req,res) => {
-    const {cpf, passaporte, senha} = req.body
+    const {cpf, numPassaporte, senha} = req.body
 
     try {
 
-        if(!cpf && !passaporte)
+        if(!cpf && !numPassaporte)
         return res.json({
             status: "Erro",
             dados: "CPF ou passaporte não foi preenchido"
@@ -25,16 +25,24 @@ routes.get('/', async (req,res) => {
                 senha
             },
             attributes: ['id', 'data_inicio', 'data_fim', 'senha', 'quant_adultos', 'quant_criancas'],
-            include: {
-                association : 'hospede',
-                where: {
-                    cpf
-                },
-                attributes: ['cpf']
-            }
+            include: [
+                {
+                    association : 'hospede',
+                    where: {
+                        cpf
+                    },
+                    attributes: ['cpf']
+                }, 
+                {
+                    association: 'quarto',
+                    attributes: ['num_quarto'],
+                    include: {
+                        association: 'tipo_de_quarto',
+                        attributes: ['nome']
+                    }
+                }
+            ]
         })
-
-        console.log(reserva)
 
         if(!reserva)
             return res.json({
@@ -52,13 +60,23 @@ routes.get('/', async (req,res) => {
                 senha
             },
             attributes: ['id', 'data_inicio', 'data_fim', 'senha', 'quant_adultos', 'quant_criancas'],
-            include: {
-                association : 'hospede',
-                where: {
-                    passaporte
-                },
-                attributes: ['passaporte']
-            }
+            include: [
+                {
+                    association : 'hospede',
+                    where: {
+                        num_passaporte: numPassaporte
+                    },
+                    attributes: ['num_passaporte']
+                }, 
+                {
+                    association: 'quarto',
+                    attributes: ['num_quarto'],
+                    include: {
+                        association: 'tipo_de_quarto',
+                        attributes: ['nome']
+                    }
+                }
+            ]
             
         })
 
