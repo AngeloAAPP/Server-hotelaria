@@ -50,7 +50,7 @@ routes.get('/', async (req,res) => {
                 dados: "CPF ou senha inválidas"
             })
 
-        return res.json(reserva)
+        return res.json({status: "Sucesso", dados: reserva})
 
     }
     else{
@@ -86,7 +86,7 @@ routes.get('/', async (req,res) => {
                 dados: "Passaporte ou senha inválidas"
             })
 
-        return res.json(reserva)
+        return res.json({status: "Sucesso", dados: reserva})
 
     }
         
