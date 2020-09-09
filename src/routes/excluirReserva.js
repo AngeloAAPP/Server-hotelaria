@@ -2,11 +2,12 @@ const routes = require('express').Router()
 const Reserva = require('../database/models/Reserva')
 
 routes.delete('/', async (req, res) =>{
+    res.setHeader("Access-Control-Allow-Origin", "*");
 
     const {id, senha} = req.body
 
     if(!parseInt(id)){
-        return res.json({Status: "Erro", dados: "id inválido"})
+        return res.json({status: "Erro", dados: "id inválido"})
     }
 
     try {
@@ -18,16 +19,16 @@ routes.delete('/', async (req, res) =>{
         })
 
         if(!reserva)
-            return res.json({Status: "Erro", dados: "Falha ao excluir reserva"})
+            return res.json({status: "Erro", dados: "Falha ao excluir reserva"})
 
         await reserva.destroy()
 
         await reserva.save()
 
-        return res.json({Status: "sucesso"})
+        return res.json({status: "Sucesso"})
 
     } catch (error) {
-        return res.json({Status: "Erro", dados: "Falha ao excluir reserva"})
+        return res.json({status: "Erro", dados: "Falha ao excluir reserva"})
     }
 })
 

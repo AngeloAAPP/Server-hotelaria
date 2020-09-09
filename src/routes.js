@@ -22,7 +22,7 @@ routes.get('/', (req,res) => {
 routes.use('/tiposdequartos', roteadorTiposdeQuartos)
 routes.use('/cadastroDeReserva', roteadorCadastroDeReserva)
 routes.use('/consultarReserva', roteadorConsultarReserva)
-routes.use('/editarReserva', roteadorAlterarReserva)
+routes.use('/alterarReserva', roteadorAlterarReserva)
 routes.use('/excluirReserva', roteadorExcluirReserva)
 
 module.exports = routes

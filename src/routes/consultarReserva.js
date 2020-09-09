@@ -2,6 +2,7 @@ const routes = require('express').Router()
 const Reserva = require('../database/models/Reserva')
 
 routes.get('/', async (req,res) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
     const {cpf, numPassaporte, senha} = req.body
 
     try {

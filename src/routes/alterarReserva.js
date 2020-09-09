@@ -3,11 +3,12 @@ const Reserva = require('../database/models/Reserva')
 const TipoDeQuarto = require('../database/models/TipoDeQuarto')
 
 routes.post('/',async (req,res) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
 
     const {id, senha, dataInicio, dataFim, quantAdultos, quantCriancas, tipoDeQuarto = ""} = req.body
 
     if(!parseInt(id)){
-        return res.json({Status: "Erro", dados: "id inválido"})
+        return res.json({status: "Erro", dados: "id inválido"})
     }
 
     try {
@@ -20,7 +21,7 @@ routes.post('/',async (req,res) => {
         })
 
         if(!reserva)
-            return res.json({Status: "Erro", dados: "Falha ao alterar reserva"})
+            return res.json({status: "Erro", dados: "Falha ao alterar reserva"})
 
         const tipodequarto = await TipoDeQuarto.findOne({
             where: {
@@ -52,9 +53,9 @@ routes.post('/',async (req,res) => {
         await reserva.save()
 
 
-        return res.json({Status: "sucesso"})
+        return res.json({status: "Sucesso"})
     } catch (error) {
-        return res.json({Status: "Erro", dados: "Falha ao alterar reserva"})
+        return res.json({status: "Erro", dados: "Falha ao alterar reserva"})
     }
 
 })
