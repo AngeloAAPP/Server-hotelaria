@@ -11,6 +11,7 @@ const routes = require('express').Router()
 const roteadorTiposdeQuartos = require('./routes/tiposdequartos')
 const roteadorCadastroDeReserva = require('./routes/cadastroDeReserva')
 const roteadorConsultarReserva = require('./routes/consultarReserva')
+const roteadorAlterarReserva = require('./routes/alterarReserva')
 
 
 routes.get('/', (req,res) => {
@@ -20,5 +21,6 @@ routes.get('/', (req,res) => {
 routes.use('/tiposdequartos', roteadorTiposdeQuartos)
 routes.use('/cadastroDeReserva', roteadorCadastroDeReserva)
 routes.use('/consultarReserva', roteadorConsultarReserva)
+routes.use('/editar', roteadorAlterarReserva)
 
 module.exports = routes
