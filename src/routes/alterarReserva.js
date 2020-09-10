@@ -1,6 +1,9 @@
 const routes = require('express').Router()
 const Reserva = require('../database/models/Reserva')
 const TipoDeQuarto = require('../database/models/TipoDeQuarto')
+const Quarto = require('../database/models/Quarto')
+
+
 
 routes.post('/',async (req,res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -23,21 +26,6 @@ routes.post('/',async (req,res) => {
         if(!reserva)
             return res.json({status: "Erro", dados: "Falha ao alterar reserva"})
 
-        const tipodequarto = await TipoDeQuarto.findOne({
-            where: {
-                nome: tipoDeQuarto
-            }
-        })
-
-        let tipodequartoID = null
-
-        if(tipodequarto)
-            tipodequartoID = tipodequarto.id
-
-
-        
-
-
         await reserva.update({
             data_inicio: dataInicio, 
             data_fim: dataFim, 
@@ -45,11 +33,27 @@ routes.post('/',async (req,res) => {
             quant_criancas: quantCriancas,
         })
 
-        if(tipodequarto){
-            await reserva.quarto.update({
-                tipo_de_quarto_id: tipodequartoID
+        if(tipoDeQuarto !==  ""){
+            const novoTipoDeQuarto = await TipoDeQuarto.findOne({
+                where: {
+                    nome: tipoDeQuarto
+                }
+            })
+
+            if(!novoTipoDeQuarto)
+                return res.json({status: "Erro", dados: "Falha ao alterar reserva"})
+
+            const quarto = await Quarto.findOne({
+                where: {
+                    tipo_de_quarto_id: novoTipoDeQuarto.id
+                }
+            })
+
+            await reserva.update({
+                quarto_id: quarto.id
             })
         }
+
         await reserva.save()
 
 
