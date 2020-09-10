@@ -22,24 +22,6 @@ class Funcionario extends Model {
                     }
                 }
             },
-            cargo: {
-                type: DataTypes.STRING,
-                allowNull: false,
-                validate: {
-                    notNull: {
-                        msg: "O cargo é obrigatório"
-                    }
-                }
-            },
-            ramal: {
-                type: DataTypes.STRING,
-                allowNull: false,
-                validate: {
-                    notNull: {
-                        msg: "O ramal é obrigatório"
-                    }
-                }
-            },
             celular: {
                 type: DataTypes.STRING,
                 allowNull: true,
@@ -91,6 +73,16 @@ class Funcionario extends Model {
             //campo da tabela endereços que referencia um funcionario
             foreignKey: 'funcionario_id'
         })
+        this.hasOne(
+            models.Cargo, {
+
+                //nome que daremos pro relacionamento, será usado futuramente nas rotas
+                as: 'cargo',
+    
+                //campo da tabela endereços que referencia um funcionario
+                foreignKey: 'cargo_id'
+            } 
+        )
     }
 }
 
