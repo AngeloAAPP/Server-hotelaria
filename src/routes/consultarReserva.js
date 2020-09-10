@@ -3,7 +3,7 @@ const Reserva = require('../database/models/Reserva')
 
 routes.get('/', async (req,res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
-    const {cpf, numPassaporte, senha} = req.body
+    const {cpf, numPassaporte, senha} = req.query
 
     try {
 
@@ -19,7 +19,7 @@ routes.get('/', async (req,res) => {
             dados: "Senha não preenchida"
         })
 
-    if(cpf){
+    if(cpf && cpf !== "" && cpf !== "null"){
 
         const reserva = await Reserva.findOne({
             where: {
@@ -87,11 +87,13 @@ routes.get('/', async (req,res) => {
                 dados: "Passaporte ou senha inválidas"
             })
 
+        console.log(reserva);
         return res.json({status: "Sucesso", dados: reserva})
 
     }
         
     } catch (error) {
+        console.log(error)
         return res.json({status: "erro", dados: "erro no servidor"})
     }
 
