@@ -28,6 +28,7 @@ routes.delete('/', async (req, res) =>{
         return res.json({status: "Sucesso"})
 
     } catch (error) {
+        console.log(error)
         return res.json({status: "Erro", dados: "Falha ao excluir reserva"})
     }
 })
