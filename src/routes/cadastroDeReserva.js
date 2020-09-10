@@ -31,7 +31,7 @@ routes.post('/', async (req, res) => {
         let regexCpf = /^\d{11}$/
 
         //por algum motivo, o front está mandando null como string
-        if(dados.cpf !== "null"){
+        if(dados.cpf !== "null" && dados.cpf !== ""){
             if(!regexCpf.test(dados.cpf))
                 return res.status(400).json({status: "Erro", dados: "Formato de cpf inválido"})
         }
@@ -45,7 +45,7 @@ routes.post('/', async (req, res) => {
         dados.idTipoDeQuarto = tipoDeQuarto.dataValues.id
     
         var retornoHospede = [];
-        if (dados.cpf !== null) {
+        if (dados.cpf !== null && dados.cpf !== "null") {
             retornoHospede = await Hospede.findOrCreate({
                 where: {
                     cpf: dados.cpf
