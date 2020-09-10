@@ -29,12 +29,11 @@ class Cargo extends Model{
      * @param models a lista de models inicializados
      */
     static associate(models){
-
         //Associa com o funcionario
-        this.belongsToMany(models.Funcionario, {
+        this.hasMany(models.Funcionario, {
 
           //nome que daremos pro relacionamento, será usado futuramente nas rotas
-          as : 'funcionario',
+          as : 'funcionarios',
 
           //campo da tabela funcionario que referencia um cargo
           foreignKey: 'cargo_id'

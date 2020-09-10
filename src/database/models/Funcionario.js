@@ -73,14 +73,15 @@ class Funcionario extends Model {
             //campo da tabela endereços que referencia um funcionario
             foreignKey: 'funcionario_id'
         })
-        this.hasOne(
+
+        this.belongsTo(
             models.Cargo, {
 
                 //nome que daremos pro relacionamento, será usado futuramente nas rotas
                 as: 'cargo',
     
-                //campo da tabela endereços que referencia um funcionario
-                foreignKey: 'cargo_id'
+                //campo da tabela  que referencia um funcionario
+                foreignKey: 'id'
             } 
         )
     }
