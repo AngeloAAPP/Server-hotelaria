@@ -1,52 +1,24 @@
-const Reserva = require('../database/models/Reserva')
 const Quarto = require('../database/models/Quarto')
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op
+const conexao = require('../database/index')
 
 const validacao = {
     verificarQuartoVazio: async (tipoDeQuarto, dataInicio, dataFim)=> {
         return await Quarto.findOne({
             where: {
-                tipo_de_quarto_id: tipoDeQuarto,
-            },
-            include: [
-                {
-                    model: Reserva,
-                    as: 'reservas',
-                    where: {
-                        [Op.or]: [
-                            {
-                                id: {
-                                    [Op.is]: null,
-                                }
-                            },
-                            {
-                                [Op.and]: [
-                                    {
-                                        data_inicio: {
-                                            [Op.notBetween]: [
-                                                dataInicio,
-                                                dataFim,
-                                            ]
-                                        }
-                                    },
-                                    {
-                                        data_fim: {
-                                            [Op.notBetween]: [
-                                                dataInicio,
-                                                dataFim,
-                                            ]
-                                        }
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    required: false
-                }
-            ]
+                id: {
+                    [Op.notIn]: Sequelize.literal('(' + conexao.dialect.queryGenerator.selectQuery('reservas',{
+                        attributes: ['quarto_id'],
+                        where: {
+                              data_inicio: {[Op.lt]: dataFim},
+                              data_fim: {[Op.gt]: dataInicio},
+                        }})
+                        .slice(0,-1) + ')')
+                },
+                tipo_de_quarto_id: tipoDeQuarto
+            }
         })
-
     }
 }
 

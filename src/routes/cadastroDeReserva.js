@@ -2,7 +2,6 @@ const routes = require('express').Router()
 const TipoDeQuarto = require('../database/models/TipoDeQuarto')
 const Hospede = require('../database/models/Hospede')
 const Endereco = require('../database/models/Endereco')
-const Quarto = require('../database/models/Quarto')
 const Reserva = require('../database/models/Reserva')
 const crypto = require('crypto')
 const validacao = require('../functions/validacao')
@@ -48,8 +47,6 @@ routes.post('/', async (req, res) => {
         dados.idTipoDeQuarto = tipoDeQuarto.dataValues.id
 
         const quarto = await validacao.verificarQuartoVazio(dados.idTipoDeQuarto, new Date(dados.data_inicio), new Date(dados.data_fim))
-
-        console.log(quarto);
 
         if(!quarto)
             return res.json({
