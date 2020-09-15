@@ -27,7 +27,7 @@ routes.post('/', async (req,res) => {
         })
 
 
-        return res.json({Status: "Sucesso", dados: {...resultadoTransaction}})
+        return res.json({status: "Sucesso", dados: {...resultadoTransaction}})
         
     } catch (err) {
 
