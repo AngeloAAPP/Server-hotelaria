@@ -2,8 +2,9 @@ const routes = require('express').Router()
 const TipoDeQuarto = require('../database/models/TipoDeQuarto')
 const Hospede = require('../database/models/Hospede')
 const Endereco = require('../database/models/Endereco')
-const Quarto = require('../database/models/Quarto')
 const Reserva = require('../database/models/Reserva')
+const crypto = require('crypto')
+const validacao = require('../functions/validacao')
 
 routes.post('/', async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -26,6 +27,7 @@ routes.post('/', async (req, res) => {
             data_fim: req.body.dataFim,
             tipoDeQuarto: req.body.tipoDeQuarto,
             idTipoDeQuarto: null,
+            senha: crypto.randomBytes(4).toString('hex')
         }
 
         let regexCpf = /^\d{11}$/
@@ -43,6 +45,14 @@ routes.post('/', async (req, res) => {
         })
     
         dados.idTipoDeQuarto = tipoDeQuarto.dataValues.id
+
+        const quarto = await validacao.verificarQuartoVazio(dados.idTipoDeQuarto, new Date(dados.data_inicio), new Date(dados.data_fim))
+
+        if(!quarto)
+            return res.json({
+                status: "Erro",
+                dados: "Não há nenhum quarto disponível nesse período"
+            })
     
         var retornoHospede = [];
         if (dados.cpf !== null && dados.cpf !== "null") {
@@ -54,7 +64,7 @@ routes.post('/', async (req, res) => {
                     nome: dados.nome,
                     cpf: dados.cpf,
                     telefone: dados.telefone,
-                    num_passaporte: dados.num_passaporte
+                    num_passaporte: null
                 }
             })
         }
@@ -65,7 +75,7 @@ routes.post('/', async (req, res) => {
                 },
                 defaults: {
                     nome: dados.nome,
-                    cpf: dados.cpf,
+                    cpf: null,
                     telefone: dados.telefone,
                     num_passaporte: dados.num_passaporte
                 }
@@ -94,17 +104,11 @@ routes.post('/', async (req, res) => {
             }
         })
     
-        const quarto = await Quarto.findOne({
-            where: {
-                tipo_de_quarto_id: dados.idTipoDeQuarto,
-            }
-        })
-    
         const [reserva, booleanoReserva] = await Reserva.findOrCreate({
             where: {
-                data_inicio: dados.data_inicio,
-                data_fim: dados.data_fim
-                
+                data_inicio: new Date(dados.data_inicio),
+                data_fim: new Date(dados.data_fim),
+                hospede_id: hospede.id,
             },
             defaults: {
                 data_inicio: dados.data_inicio,
@@ -116,7 +120,7 @@ routes.post('/', async (req, res) => {
                 quarto_id: quarto.id
             }
         })
-    
+
         res.json({
             status: "Sucesso",
             dados: reserva,
