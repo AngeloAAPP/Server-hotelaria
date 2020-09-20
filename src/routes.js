@@ -14,6 +14,7 @@ const roteadorConsultarReserva = require('./routes/consultarReserva')
 const roteadorAlterarReserva = require('./routes/alterarReserva')
 const roteadorExcluirReserva = require('./routes/excluirReserva')
 const roteadorCadastroDeFuncionario = require('./routes/cadastroDeFuncionario')
+const roteadorConsultarReservas = require('./routes/consultarReservas')
 
 
 routes.get('/', (req,res) => {
@@ -26,5 +27,6 @@ routes.use('/consultarReserva', roteadorConsultarReserva)
 routes.use('/alterarReserva', roteadorAlterarReserva)
 routes.use('/excluirReserva', roteadorExcluirReserva)
 routes.use('/cadastroDeFuncionario', roteadorCadastroDeFuncionario)
+routes.use('/consultarReservas', roteadorConsultarReservas)
 
 module.exports = routes
