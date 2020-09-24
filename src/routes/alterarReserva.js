@@ -2,7 +2,7 @@ const routes = require('express').Router()
 const Reserva = require('../database/models/Reserva')
 const TipoDeQuarto = require('../database/models/TipoDeQuarto')
 const validacao = require('../functions/validacao')
-//FALTA VERIFICAR SE O QUARTO ESTÁ VÁLIDO AO TROCAR A DATA
+
 routes.post('/',async (req,res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
 

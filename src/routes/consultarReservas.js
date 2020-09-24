@@ -42,8 +42,8 @@ routes.get('/', async (req,res) => {
                 dados: "CPF inválido"
             })
 
-            if(reserva.length === 0)
-            return res.json({status: "Erro", dados: "Não foi encontrada nenhuma reserva. Talvez o hospede não possua nenhuma reserva ou o cpf não exista/esteja cadastrado"})
+        if(reserva.length === 0)
+            return res.json({status: "Erro", dados: "Não foi encontrada nenhuma reserva. Talvez o hóspede não possua nenhuma reserva ou o CPF não exista/esteja cadastrado"})
 
         return res.json({status: "Sucesso", dados: reserva})
 
