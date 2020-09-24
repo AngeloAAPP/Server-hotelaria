@@ -4,15 +4,16 @@ const Op = Sequelize.Op
 const conexao = require('../database/index')
 
 const validacao = {
-    verificarQuartoVazio: async (tipoDeQuarto, dataInicio, dataFim)=> {
+    verificarQuartoVazio: async (tipoDeQuarto, dataInicio, dataFim, idReserva = null)=> {
         return await Quarto.findOne({
             where: {
                 id: {
                     [Op.notIn]: Sequelize.literal('(' + conexao.dialect.queryGenerator.selectQuery('reservas',{
                         attributes: ['quarto_id'],
                         where: {
-                              data_inicio: {[Op.lt]: dataFim},
-                              data_fim: {[Op.gt]: dataInicio},
+                            id: {[Op.ne]: idReserva},
+                            data_inicio: {[Op.lt]: dataFim},
+                            data_fim: {[Op.gt]: dataInicio},
                         }})
                         .slice(0,-1) + ')')
                 },
