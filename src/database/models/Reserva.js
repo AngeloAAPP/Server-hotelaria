@@ -1,5 +1,11 @@
 const { Model, DataTypes } = require('sequelize')
-
+const consumo_de_produtos = sequelize.define('consumo_de_produtos', {
+    dia: DataTypes.DATE
+ })
+const consumo_de_servicos = sequelize.define('consumo_de_servicos', {
+    dia: DataTypes.DATE,
+    concluido: DataTypes.BOOLEAN
+})
 class Reserva extends Model {
 
     /**
@@ -79,6 +85,32 @@ class Reserva extends Model {
             //campo da tabela reservas que referencia um quarto
             foreignKey: 'quarto_id'
           })
+
+        this.belongsToMany(
+            models.Produto, 
+            {
+                // nome da tabela do relacionamento
+                through: consumo_de_produtos,
+  
+              //nome que daremos pro relacionamento, será usado futuramente nas rotas
+                as : 'produtos',
+  
+                // referência na tabela reserva 
+                foreignKey: 'produto_id'
+            })
+
+            this.belongsToMany(
+                models.Servico, 
+                {
+                    // nome da tabela do relacionamento
+                    through: consumo_de_servicos,
+      
+                  //nome que daremos pro relacionamento, será usado futuramente nas rotas
+                    as : 'servicos',
+      
+                    // referência na tabela reserva 
+                    foreignKey: 'servico_id'
+                })
     }
 }
 
