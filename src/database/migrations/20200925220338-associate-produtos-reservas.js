@@ -22,6 +22,10 @@ module.exports = {
           type: Sequelize.INTEGER,
           primaryKey: true,
         },
+        dia: {
+          allowNull: false,
+          type: Sequelize.DATE,
+        },
       }
     );
   },

@@ -21,6 +21,14 @@ module.exports = {
           type: Sequelize.INTEGER,
           primaryKey: true,
         },
+        dia: {
+          allowNull: false,
+          type: Sequelize.DATE,
+        },
+        concluido: {
+          allowNull: false,
+          type: Sequelize.BOOLEAN,
+        },
       }
     );
   },

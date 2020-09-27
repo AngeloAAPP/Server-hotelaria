@@ -1,8 +1,4 @@
 const {Model, DataTypes} = require('sequelize')
-const consumo_de_servicos = sequelize.define('consumo_de_servicos', {
-  dia: DataTypes.DATE,
-  concluido: DataTypes.BOOLEAN
-})
 
 class Servico extends Model{
 
@@ -35,7 +31,7 @@ class Servico extends Model{
           models.Reserva, 
           {
               // nome da tabela do relacionamento
-              through: consumo_de_servicos,
+              through: 'consumo_de_servicos',
 
             //nome que daremos pro relacionamento, será usado futuramente nas rotas
               as : 'reservas',
