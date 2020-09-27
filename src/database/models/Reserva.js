@@ -48,6 +48,16 @@ class Reserva extends Model {
                     }
                 }
             },
+            check_in_realizado: {
+                type: DataTypes.BOOLEAN,
+                defaultValue: false,
+                allowNull: false,
+                validate: {
+                    notNull:{
+                        msg: "A situação do check=in é obrigatória"
+                    }
+                }
+            },
         }, {
             sequelize,
             tableName: 'reservas'
