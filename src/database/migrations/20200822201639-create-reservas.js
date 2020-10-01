@@ -49,6 +49,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false
       },
+      check_in_realizado: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false
+      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false

@@ -1,5 +1,7 @@
 const routes = require('express').Router()
 const Reserva = require('../database/models/Reserva')
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op
 
 routes.get('/', async (req,res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -16,6 +18,11 @@ routes.get('/', async (req,res) => {
     if(cpf && cpf !== "" && cpf !== "null"){
 
         const reserva = await Reserva.findAll({
+            where: {
+                check_in_realizado: false,
+                data_inicio: {[Op.lte]: new Date()},
+                data_fim: {[Op.gte]: new Date()},
+            },
             attributes: ['id', 'data_inicio', 'data_fim', 'senha', 'quant_adultos', 'quant_criancas'],
             include: [
                 {
@@ -51,6 +58,11 @@ routes.get('/', async (req,res) => {
     else{
 
         const reserva = await Reserva.findAll({
+            where: {
+                check_in_realizado: false,
+                data_inicio: {[Op.lte]: new Date()},
+                data_fim: {[Op.gte]: new Date()},
+            },
             attributes: ['id', 'data_inicio', 'data_fim', 'senha', 'quant_adultos', 'quant_criancas'],
             include: [
                 {
@@ -79,7 +91,7 @@ routes.get('/', async (req,res) => {
             })
 
         if(reserva.length === 0)
-            return res.json({status: "Erro", dados: "Não foi encontrada nenhuma reserva. Talvez o hospede não possua nenhuma reserva ou o passaporte não exista/esteja cadastrado"})
+            return res.json({status: "Erro", dados: "Não foi encontrada nenhuma reserva. Talvez o hóspede não possua nenhuma reserva ou o passaporte não exista/esteja cadastrado"})
 
         return res.json({status: "Sucesso", dados: reserva})
 

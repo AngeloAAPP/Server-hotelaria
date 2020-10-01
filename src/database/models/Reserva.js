@@ -48,6 +48,16 @@ class Reserva extends Model {
                     }
                 }
             },
+            check_in_realizado: {
+                type: DataTypes.BOOLEAN,
+                defaultValue: false,
+                allowNull: false,
+                validate: {
+                    notNull:{
+                        msg: "A situação do check=in é obrigatória"
+                    }
+                }
+            },
         }, {
             sequelize,
             tableName: 'reservas'
@@ -79,6 +89,32 @@ class Reserva extends Model {
             //campo da tabela reservas que referencia um quarto
             foreignKey: 'quarto_id'
           })
+
+        this.belongsToMany(
+            models.Produto, 
+            {
+                // nome da tabela do relacionamento
+                through: 'consumo_de_produtos',
+  
+              //nome que daremos pro relacionamento, será usado futuramente nas rotas
+                as : 'produtos',
+  
+                // referência na tabela reserva 
+                foreignKey: 'produto_id'
+            })
+
+            this.belongsToMany(
+                models.Servico, 
+                {
+                    // nome da tabela do relacionamento
+                    through: 'consumo_de_servicos',
+      
+                  //nome que daremos pro relacionamento, será usado futuramente nas rotas
+                    as : 'servicos',
+      
+                    // referência na tabela reserva 
+                    foreignKey: 'servico_id'
+                })
     }
 }
 
