@@ -4,7 +4,11 @@ const Produto = require('../database/models/Produto')
 routes.get("/", async (req,res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
 
-    const produtos = await Produto.findAll()
+    const produtos = await Produto.findAll({
+        where: {
+            categoria: "Frigobar"
+        }
+    })
 
     return res.json({status: "Sucesso", dados: produtos})
 })

@@ -7,7 +7,7 @@ routes.post('/', async (req, res) => {
     const {nome, custo} = req.body
 
     if(!parseFloat(custo))
-        return res.json({status: "Erro", dados: "Custo do pruduto inválido"})
+        return res.json({status: "Erro", dados: "Custo do produto inválido"})
 
     try {
 

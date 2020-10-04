@@ -14,7 +14,13 @@ routes.delete('/:id', async (req, res) => {
         if (!deleted)
             return res.json({ status: "Erro", dados: "Falha ao excluir produto" })
 
-        return res.json({ status: "Sucesso" })
+        const produtos = await Produto.findAll({
+            where: {
+                categoria: "Frigobar"
+            }
+        })
+        
+        return res.json({ status: "Sucesso", dados: produtos })
 
     } catch (error) {
         console.log(error)
