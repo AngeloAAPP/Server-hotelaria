@@ -31,6 +31,15 @@ routes.post('/', async (req, res) => {
         if (!produto)
             return res.json({status: "Erro", dados: "Falha ao alterar produto"})
 
+        const produtoExist = await Produto.findOne({
+            where: {
+                nome
+            }
+        })
+
+        if(produtoExist)
+            return res.json({status: "Erro", dados: "Nome do produto já existente"})
+
         let {nome: nomeAntigo, custo: custoAntigo} = produto.dataValues
         let dadosNovos = {}
 
