@@ -33,7 +33,13 @@ routes.post('/', async (req, res) => {
         if(!produto)
             return res.json({status: "Erro", dados: "Erro ao cadastrar produto"})
 
-        return res.json({status: "Sucesso", dados: produto})
+        const produtos = await Produto.findAll({
+            where: {
+                categoria: "Frigobar"
+            }
+        })
+
+        return res.json({status: "Sucesso", dados: produtos})
 
     } catch (error) {
         console.log(error)
