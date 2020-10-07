@@ -7,7 +7,8 @@ routes.get("/", async (req,res) => {
     const produtos = await Produto.findAll({
         where: {
             categoria: "Frigobar"
-        }
+        },
+        order: [['nome', 'ASC']]
     })
 
     return res.json({status: "Sucesso", dados: produtos})

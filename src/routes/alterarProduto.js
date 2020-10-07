@@ -1,4 +1,6 @@
 const routes = require('express').Router()
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op
 const Produto = require('../database/models/Produto')
 
 routes.post('/', async (req, res) => {
@@ -31,17 +33,15 @@ routes.post('/', async (req, res) => {
         if (!produto)
             return res.json({status: "Erro", dados: "Falha ao alterar produto"})
 
-        //Corrige bug cadastrar produto duplicado, mas gera outro
-        //Não consegue alterar o custo do próprio produto, pois ele ve que o nome é igual e não deixa alterar
-        
-        // const produtoExist = await Produto.findOne({
-        //     where: {
-        //         nome
-        //     }
-        // })
+        const produtoExiste = await Produto.findOne({
+            where: {
+                nome,
+                id: {[Op.ne]: id},
+            }
+        })
 
-        // if(produtoExist)
-        //     return res.json({status: "Erro", dados: "Nome do produto já existente"})
+        if (produtoExiste)
+            return res.json({status: "Erro", dados: "O nome do produto já existe"})
 
         let {nome: nomeAntigo, custo: custoAntigo} = produto.dataValues
         let dadosNovos = {}
@@ -61,7 +61,8 @@ routes.post('/', async (req, res) => {
         const listaDeProdutos = await Produto.findAll({
             where: {
                 categoria: "Frigobar"
-            }
+            },
+            order: [['nome', 'ASC']]
         })
 
         return res.json({status: "Sucesso", dados: listaDeProdutos})
