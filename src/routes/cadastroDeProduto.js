@@ -7,7 +7,7 @@ routes.post('/', async (req, res) => {
     const {nome, custo} = req.body
 
     if(!parseFloat(custo))
-        return res.json({status: "Erro", dados: "Custo do pruduto inválido"})
+        return res.json({status: "Erro", dados: "Custo do produto inválido"})
 
     try {
 
@@ -33,7 +33,14 @@ routes.post('/', async (req, res) => {
         if(!produto)
             return res.json({status: "Erro", dados: "Erro ao cadastrar produto"})
 
-        return res.json({status: "Sucesso", dados: produto})
+        const produtos = await Produto.findAll({
+            where: {
+                categoria: "Frigobar"
+            },
+            order: [['nome', 'ASC']]
+        })
+
+        return res.json({status: "Sucesso", dados: produtos})
 
     } catch (error) {
         console.log(error)
