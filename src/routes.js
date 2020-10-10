@@ -20,6 +20,7 @@ const roteadorCadastroDeProduto = require('./routes/cadastroDeProduto')
 const roteadorConsultarProduto = require('./routes/consultarProduto')
 const roteadorExcluirProduto = require('./routes/excluirProduto')
 const roteadorAlterarProduto = require('./routes/alterarProduto')
+const roteadorConsultarServico = require('./routes/consultarServico')
 
 
 routes.get('/', (req,res) => {
@@ -38,6 +39,7 @@ routes.use('/cadastroDeProduto', roteadorCadastroDeProduto)
 routes.use('/consultarProduto', roteadorConsultarProduto)
 routes.use('/excluirProduto', roteadorExcluirProduto)
 routes.use('/alterarProduto', roteadorAlterarProduto)
+routes.use('/consultarServico', roteadorConsultarServico)
 
 
 module.exports = routes
