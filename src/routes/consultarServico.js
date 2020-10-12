@@ -4,7 +4,9 @@ const Servico = require('../database/models/Servico')
 routes.get("/", async (req,res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
 
-    const servicos = await Servico.findAll()
+    const servicos = await Servico.findAll({
+        order: [['nome', 'ASC']]
+    })
 
     return res.json({status: "Sucesso", dados: servicos})
 })

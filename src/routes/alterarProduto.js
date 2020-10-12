@@ -1,7 +1,6 @@
 const routes = require('express').Router()
-const Sequelize = require('sequelize')
-const Op = Sequelize.Op
 const Produto = require('../database/models/Produto')
+const validacao = require('../functions/validacao')
 
 routes.post('/', async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -33,12 +32,7 @@ routes.post('/', async (req, res) => {
         if (!produto)
             return res.json({status: "Erro", dados: "Falha ao alterar produto"})
 
-        const produtoExiste = await Produto.findOne({
-            where: {
-                nome,
-                id: {[Op.ne]: id},
-            }
-        })
+        const produtoExiste = await validacao.existeSemAcentoMinuscula(Produto, 'nome', nome, id)
 
         if (produtoExiste)
             return res.json({status: "Erro", dados: "O nome do produto já existe"})

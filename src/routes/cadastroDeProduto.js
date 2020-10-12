@@ -1,5 +1,6 @@
 const routes = require('express').Router()
 const Produto = require('../database/models/Produto')
+const validacao = require('../functions/validacao')
 
 routes.post('/', async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -11,13 +12,7 @@ routes.post('/', async (req, res) => {
 
     try {
 
-        const existeProduto = await Produto.findOne(
-            {
-                where: {
-                    nome
-                }
-            }
-        )
+        const existeProduto = await validacao.existeSemAcentoMinuscula(Produto, 'nome', nome)
 
         if(existeProduto)
             return res.json({status: "Erro", dados: "Produto já cadastrado"})
