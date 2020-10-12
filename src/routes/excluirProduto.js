@@ -5,13 +5,13 @@ const Produto = require('../database/models/Produto')
 routes.delete('/:id', async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     try {
-        var produtoId = parseInt(req.params.id);
+        var idProduto = parseInt(req.params.id);
 
-        const deleted = await Produto.destroy({
-            where: { id: produtoId }
+        const excluido = await Produto.destroy({
+            where: { id: idProduto }
         });
 
-        if (!deleted)
+        if (!excluido)
             return res.json({ status: "Erro", dados: "Falha ao excluir produto" })
 
         const produtos = await Produto.findAll({
