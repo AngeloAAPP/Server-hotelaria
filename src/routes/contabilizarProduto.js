@@ -77,8 +77,12 @@ routes.get('/', async (req, res) => {
                 }
             })*/
 
-            console.log(reserva)
+            //const consumo = await reserva.addProduto(produto)
 
+            await connection.dialect.queryGenerator.selectQuery()
+            const consumo = await connection.query(`INSERT INTO consumo_de_produtos (produto_id, reserva_id, dia, created_at, updated_at) VALUES(${idProduto}, ${reserva.id}, '${new Date()}', '${new Date()}', '${new Date()}')`);
+
+            console.log(consumo)
 
 
 
@@ -88,7 +92,11 @@ routes.get('/', async (req, res) => {
         console.log(resultadoTransaction)
     }
     catch (erro) {
-
+        console.log(erro)
+        return res.json({
+            status: "Erro",
+            dados: "Erro no servidor"
+        })
     }
 
 })
