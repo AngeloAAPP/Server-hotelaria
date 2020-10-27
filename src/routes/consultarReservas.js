@@ -99,7 +99,7 @@ routes.get('/', async (req,res) => {
         
     } catch (error) {
         console.log(error)
-        return res.json({status: "erro", dados: "erro no servidor"})
+        return res.json({status: "Erro", dados: "Erro no servidor"})
     }
 
     
