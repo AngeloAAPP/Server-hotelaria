@@ -12,6 +12,7 @@ const TipoDeQuarto = require('./models/TipoDeQuarto')
 const Cargo = require('./models/Cargo')
 const Produto = require('./models/Produto')
 const Servico = require('./models/Servico')
+const ConsumoDeProdutos = require("./models/ConsumoDeProdutos")
 
 
 const connection = new Sequelize(dbConfig)
@@ -27,6 +28,7 @@ TipoDeQuarto.init(connection)
 Cargo.init(connection)
 Produto.init(connection)
 Servico.init(connection)
+ConsumoDeProdutos.init(connection)
 
 //Associamos (definimos os relacionamentos) entre os modulos
 

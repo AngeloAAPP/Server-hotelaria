@@ -1,12 +1,12 @@
 const routes = require('express').Router()
 const connection = require('../database');
 const Produto = require('../database/models/Produto');
-const Quarto = require('../database/models/Quarto');
 const Reserva = require('../database/models/Reserva');
 const Sequelize = require('sequelize');
+const ConsumoDeProdutos = require('../database/models/ConsumoDeProdutos');
 const Op = Sequelize.Op
 
-routes.get('/', async (req, res) => {
+routes.post('/', async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
 
     const {idProduto, idQuarto} = req.body
@@ -64,32 +64,20 @@ routes.get('/', async (req, res) => {
                     dados: "Reserva não encontrada"
                 })
 
-            /*await Reserva.update({
-                where: {
-                    id: reserva.id
-                },
-                include: {
-                    association: 'consumo_de_produtos',
-                    attributes: [
-                        'produto_id',
-                        'reserva_id'
-                    ]
+            const consumoDeProduto = await ConsumoDeProdutos.create(
+                {
+                    produto_id: idProduto,
+                    reserva_id: reserva.id,
+                    dia: new Date()
                 }
-            })*/
-
-            //const consumo = await reserva.addProduto(produto)
-
-            await connection.dialect.queryGenerator.selectQuery()
-            const consumo = await connection.query(`INSERT INTO consumo_de_produtos (produto_id, reserva_id, dia, created_at, updated_at) VALUES(${idProduto}, ${reserva.id}, '${new Date()}', '${new Date()}', '${new Date()}')`);
-
-            console.log(consumo)
-
-
-
-            //return
+            )
+            
+            if(!consumoDeProduto)
+                return res.json({status: "Erro", dados: "Erro no consumo do produto"})
+            
         })
 
-        console.log(resultadoTransaction)
+        return res.json({status: "Sucesso"})
     }
     catch (erro) {
         console.log(erro)
