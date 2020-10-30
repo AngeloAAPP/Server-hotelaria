@@ -27,7 +27,7 @@ routes.post('/', async (req,res) => {
             where: {
                 senha
             },
-            attributes: ['id', 'data_inicio', 'data_fim', 'senha', 'quant_adultos', 'quant_criancas'],
+            attributes: ['id', 'data_inicio', 'data_fim', 'senha', 'quant_adultos', 'quant_criancas', 'check_in_realizado'],
             include: [
                 {
                     association : 'hospede',
@@ -53,6 +53,12 @@ routes.post('/', async (req,res) => {
                 dados: "CPF ou senha inválidas"
             })
 
+        if(!reserva.check_in_realizado)
+            return res.json({
+                status: "Erro",
+                dados: "O check-in no hotel ainda não foi realizado"
+            })
+
         //Não coloca a senha no token
         reserva.senha = undefined
 
@@ -70,7 +76,7 @@ routes.post('/', async (req,res) => {
             where: {
                 senha
             },
-            attributes: ['id', 'data_inicio', 'data_fim', 'senha', 'quant_adultos', 'quant_criancas'],
+            attributes: ['id', 'data_inicio', 'data_fim', 'senha', 'quant_adultos', 'quant_criancas', 'check_in_realizado'],
             include: [
                 {
                     association : 'hospede',
@@ -95,6 +101,12 @@ routes.post('/', async (req,res) => {
             return res.json({
                 status: "Erro",
                 dados: "Passaporte ou senha inválidas"
+            })
+
+        if(!reserva.check_in_realizado)
+            return res.json({
+                status: "Erro",
+                dados: "O check-in no hotel ainda não foi realizado"
             })
 
         //Não coloca a senha no token
