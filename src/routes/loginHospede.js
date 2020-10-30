@@ -34,7 +34,7 @@ routes.post('/', async (req,res) => {
                     where: {
                         cpf
                     },
-                    attributes: ['cpf']
+                    attributes: ['cpf', 'nome']
                 }, 
                 {
                     association: 'quarto',
@@ -63,11 +63,14 @@ routes.post('/', async (req,res) => {
         reserva.senha = undefined
 
         //Foi colocado uma senha qualquer por enquanto. Decidir se colocará a senha em variavel de ambiente, configurando o heroku
-        //Token expirando em 1 dia
+        //Token expirando em 7 dias
         const token = jwt.sign({...reserva.dataValues}, "senhaqualquer", {
-            expiresIn: 86400
+            expiresIn: "7d"
         })
-        return res.json({status: "Sucesso", dados: token})
+        return res.json({status: "Sucesso", dados: {
+            token: token,
+            nome: reserva.hospede.nome
+        }})
 
     }
     else{
@@ -83,7 +86,7 @@ routes.post('/', async (req,res) => {
                     where: {
                         num_passaporte: numPassaporte
                     },
-                    attributes: ['num_passaporte']
+                    attributes: ['num_passaporte', 'nome']
                 }, 
                 {
                     association: 'quarto',
@@ -113,11 +116,14 @@ routes.post('/', async (req,res) => {
         reserva.senha = undefined
 
         //Foi colocado uma senha qualquer por enquanto. Decidir se colocará a senha em variavel de ambiente, configurando o heroku
-        //Token expirando em 1 dia
+        //Token expirando em 7 dias
         const token = jwt.sign({...reserva.dataValues}, "senhaqualquer", {
-            expiresIn: 86400
+            expiresIn: "7d"
         })
-        return res.json({status: "Sucesso", dados: token})
+        return res.json({status: "Sucesso", dados: {
+            token: token,
+            nome: reserva.hospede.nome
+        }})
 
     }
         
