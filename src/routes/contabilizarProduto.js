@@ -9,12 +9,18 @@ const Op = Sequelize.Op
 routes.post('/', async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
 
-    const {idProduto, idQuarto} = req.body
+    const {idProduto, quantProduto, idQuarto} = req.body
 
     if(!parseInt(idProduto))
         return res.json({
             status: "Erro",
             dados: "Produto inválido"
+        })
+
+    if(!parseInt(quantProduto) || quantProduto <= 0)
+        return res.json({
+            status: "Erro",
+            dados: "Quantidade inválida"
         })
 
     if(!parseInt(idQuarto))
@@ -64,17 +70,18 @@ routes.post('/', async (req, res) => {
                     dados: "Reserva não encontrada"
                 })
 
-            const consumoDeProduto = await ConsumoDeProdutos.create(
-                {
-                    produto_id: idProduto,
-                    reserva_id: reserva.id,
-                    dia: new Date()
-                }
-            )
-            
-            if(!consumoDeProduto)
-                return res.json({status: "Erro", dados: "Erro no consumo do produto"})
-            
+            for (let i = 0; i < quantProduto; i++) {
+                const consumoDeProduto = await ConsumoDeProdutos.create(
+                    {
+                        produto_id: idProduto,
+                        reserva_id: reserva.id,
+                        dia: new Date()
+                    }
+                )
+                
+                if(!consumoDeProduto)
+                    return res.json({status: "Erro", dados: "Erro no consumo do produto"})
+            }
         })
 
         return res.json({status: "Sucesso"})
