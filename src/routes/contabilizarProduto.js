@@ -38,10 +38,10 @@ routes.post('/', async (req, res) => {
             })
 
             if (!produto)
-                return res.json({
+                return {
                     status: "Erro",
                     dados: "Produto não encontrado"
-                })
+                }
 
             const reserva = await Reserva.findOne({
                 attributes: [
@@ -65,10 +65,10 @@ routes.post('/', async (req, res) => {
             })
 
             if (!reserva)
-                return res.json({
+                return {
                     status: "Erro",
                     dados: "Reserva não encontrada"
-                })
+                }
 
             for (let i = 0; i < quantProduto; i++) {
                 const consumoDeProduto = await ConsumoDeProdutos.create(
@@ -80,11 +80,13 @@ routes.post('/', async (req, res) => {
                 )
                 
                 if(!consumoDeProduto)
-                    return res.json({status: "Erro", dados: "Erro no consumo do produto"})
+                    return {status: "Erro", dados: "Erro no consumo do produto"}
             }
+
+            return {status: "Sucesso"}
         })
 
-        return res.json({status: "Sucesso"})
+        return res.json(resultadoTransaction)
     }
     catch (erro) {
         console.log(erro)
