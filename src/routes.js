@@ -24,6 +24,10 @@ const roteadorCadastroDeServico = require('./routes/cadastroDeServico')
 const roteadorConsultarServico = require('./routes/consultarServico')
 const roteadorExcluirServico = require('./routes/excluirServico')
 const roteadorAlterarServico = require('./routes/alterarServico')
+const roteadorConsultarQuartos = require('./routes/consultarQuartos')
+const roteadorContabilizarProduto = require('./routes/contabilizarProduto')
+const roteadorloginHospede = require('./routes/loginHospede')
+const roteadorSolicitarServico = require('./routes/solicitarServico')
 
 routes.get('/', (req,res) => {
     return res.json({version: 1.0})
@@ -45,6 +49,10 @@ routes.use('/cadastroDeServico', roteadorCadastroDeServico)
 routes.use('/consultarServico', roteadorConsultarServico)
 routes.use('/excluirServico', roteadorExcluirServico)
 routes.use('/alterarServico', roteadorAlterarServico)
+routes.use('/consultarQuartos', roteadorConsultarQuartos)
+routes.use('/contabilizarProduto', roteadorContabilizarProduto)
+routes.use('/loginHospede', roteadorloginHospede)
+routes.use('/solicitarServico', roteadorSolicitarServico)
 
 
 module.exports = routes
