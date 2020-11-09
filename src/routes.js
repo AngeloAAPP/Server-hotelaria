@@ -28,6 +28,7 @@ const roteadorConsultarQuartos = require('./routes/consultarQuartos')
 const roteadorContabilizarProduto = require('./routes/contabilizarProduto')
 const roteadorloginHospede = require('./routes/loginHospede')
 const roteadorSolicitarServico = require('./routes/solicitarServico')
+const roteadorConsultarReservasCheckout = require('./routes/consultarReservasCheckout')
 
 routes.get('/', (req,res) => {
     return res.json({version: 1.0})
@@ -53,6 +54,7 @@ routes.use('/consultarQuartos', roteadorConsultarQuartos)
 routes.use('/contabilizarProduto', roteadorContabilizarProduto)
 routes.use('/loginHospede', roteadorloginHospede)
 routes.use('/solicitarServico', roteadorSolicitarServico)
+routes.use('/consultarReservasCheckout', roteadorConsultarReservasCheckout)
 
 
 module.exports = routes
