@@ -4,7 +4,7 @@ const Reserva = require('../database/models/Reserva')
 routes.post("/", async (req,res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
 
-    const {id} = req.query;
+    const {id} = req.body;
 
     if(!id)
         return res.json({
