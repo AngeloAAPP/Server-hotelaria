@@ -11,8 +11,10 @@ routes.get("/", async (req,res) => {
             inner join consumo_de_servicos on servicos.id = consumo_de_servicos.servico_id 
             inner join reservas on reservas.id = consumo_de_servicos.reserva_id
             inner join quartos on quartos.id = reservas.quarto_id
-            where "reservas"."data_inicio" <= '2020-11-15 21:45:26.554 +00:00'
-            and "reservas"."data_fim" >= '2020-11-15 21:45:26.554 +00:00'
+            where reservas.data_inicio <= '` + (new Date()).toLocaleString("pt-BR") + `'
+            and reservas.data_fim >= '` + (new Date()).toLocaleString("pt-BR") + `'
+            and consumo_de_servicos.concluido = false
+            and quartos.livre = false
             order by consumo_de_servicos.dia
         `)
     
