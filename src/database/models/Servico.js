@@ -31,13 +31,13 @@ class Servico extends Model{
           models.Reserva, 
           {
               // nome da tabela do relacionamento
-              through: 'consumo_de_servicos',
+              through: models.ConsumoDeServicos,
 
             //nome que daremos pro relacionamento, será usado futuramente nas rotas
               as : 'reservas',
 
               // referência na tabela reserva 
-              foreignKey: 'reserva_id'
+              foreignKey: 'servico_id'
           })
     }
 }
