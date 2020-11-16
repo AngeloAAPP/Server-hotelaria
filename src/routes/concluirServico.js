@@ -13,6 +13,7 @@ routes.post('/', async (req, res) => {
     
     try {
         const servico = await ConsumoDeServicos.findOne({
+            attributes: ['id'],
             where: {
                 id
             }
