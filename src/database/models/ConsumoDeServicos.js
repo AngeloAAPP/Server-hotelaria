@@ -8,6 +8,11 @@ class ConsumoDeServicos extends Model{
      */
     static init(sequelize){
         super.init({
+            id: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                primaryKey: true,
+            },
             servico_id: {
                 type: DataTypes.INTEGER,
                 allowNull: false,

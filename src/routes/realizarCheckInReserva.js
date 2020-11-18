@@ -12,43 +12,47 @@ routes.post('/', async (req, res) => {
     }
     
     try {
-        const resultadoTransaction = await connection.transaction(async t => {
-
-            const reserva = await Reserva.findOne({
-                where: {
-                    id: id_reserva
-                },
+        
+        const reserva = await Reserva.findOne({
+            where: {
+                id: id_reserva
+            },
+            attributes: [
+                'id',
+                'check_in_realizado'
+            ],
+            include: {
+                association: 'quarto',
                 attributes: [
                     'id',
-                    'check_in_realizado'
-                ],
-                include: {
-                    association: 'quarto',
-                    attributes: [
-                        'id',
-                        'livre'
-                    ]
-                }
-            })
-
-            if (reserva.dataValues.check_in_realizado)
-                return res.json({status: "Erro", dados: "O check-in já foi realizado"})
-
-            if (!reserva.quarto.dataValues.livre)
-                return res.json({status: "Erro", dados: "O quarto está ocupado"})
-
-            await reserva.update({
-                check_in_realizado: true,
-            })
-
-            await reserva.quarto.update({
-                livre: false,
-            })
-
-            return reserva.quarto
+                    'livre'
+                ]
+            }
         })
 
-        return res.json({status: "Sucesso", dados: {...resultadoTransaction}})
+        if (!reserva){
+            return res.json({status: "Erro", dados: "Falha ao realizar check-in"})
+        }
+
+        if (reserva.check_in_realizado)
+            return res.json({status: "Erro", dados: "O check-in já foi realizado"})
+
+        if (!reserva.quarto.livre)
+            return res.json({status: "Erro", dados: "O quarto está ocupado"})
+
+        await reserva.update({
+            check_in_realizado: true,
+        })
+
+        await reserva.quarto.update({
+            livre: false,
+        })
+
+        await reserva.save()
+
+        await reserva.quarto.save()
+
+        return res.json({status: "Sucesso", dados: "Check-in realizado com sucesso!"})
 
     } catch (error) {
         console.log(error)
