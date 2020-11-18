@@ -41,7 +41,7 @@ routes.get("/", async (req,res) => {
     const servicosConsumidos = await ConsumoDeServicos.findAll({
         where: {
             reserva_id: reserva.id,
-            concluido: false
+            concluido: true
         },
         attributes: ['id','servico_id','reserva_id', 'dia', 'concluido'],
         order: ['dia']
