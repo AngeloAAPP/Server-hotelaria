@@ -75,7 +75,7 @@ routes.post('/', async (req, res) => {
                     {
                         produto_id: idProduto,
                         reserva_id: reserva.id,
-                        dia: new Date()
+                        dia: new Date().toLocaleString("pt-BR")
                     }
                 )
                 
